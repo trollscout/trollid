@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+
+body {
+  font-family: Helvetica, arial, sans-serif;
+  background: #f0f0f0;
+  margin: 0px;
+}
+
+div#logo {
+  /* background: #003C69; */
+  color: white;
+  width: 100%;
+  /* padding: 12px; */
+}
+
+div#logo img {
+  width: 300px;
+  /* margin: 15px; */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+div#error img {
+  display: none;
+}
+
+.error {
+  background: #ffeff7;
+  border: 1px solid #c69;
+  margin: 1em 5% 10px;
+  padding: 0 1em 0 1em;
+}
+
+#login input.input {
+  width: 200px;
+  font-size: large;
+}
+#login input {
+  /*	opacity: 0.6;*/
+}
+#login h1,
+#login h2 {
+  color: #003c69;
+  font-family: "Oswald", sans-serif;
+}
+
+#login input#wp-submit {
+  font-size: large;
+  padding: 4px 10px;
+}
+#languagebar a {
+  color: #aaa;
+}
+#languagebar {
+  display: none;
+
+  color: #eee;
+  font-size: 80%;
+
+  margin: 0em auto 1em;
+  padding: 0px 40px;
+
+  color: #000;
+  /*	width: 425px; */
+}
+div#error {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  border: 1px solid #999999;
+
+  background: #fff;
+
+  margin: 10px auto 1em;
+  padding: 8px 20px;
+
+  color: #000;
+}
+#login {
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  /*	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+*/
+  border: 1px solid #e6e6e6;
+  background: white;
+
+  /*
+	background: #F2F2F2 -webkit-gradient(linear, 0% 70%, 0% 100%, from(#fefefe), to(#ddd), color-stop(.6,#f0f0f0));
+	background: #F2F2F2 -moz-linear-gradient(0% 100% 90deg,#dddddd, #f0f0f0, #FEFEFE 31%);
+
+*/
+  margin: 2em auto 2em;
+  padding: 10px 30px 10px 30px;
+
+  color: #000;
+  width: 300px;
+}
+
+#login ul.links a {
+  text-decoration: none;
+  color: #666;
+}
+#login ul.links a:hover {
+  color: #111;
+}
+#login ul.links {
+  /*	border: 1px solid #111;*/
+  font-family: Helvetica, arial, sans-serif;
+  padding: 0px;
+  font-size: 85%;
+  list-style-type: square;
+  list-style-position: inside;
+}
+#login ul.links li {
+  margin-top: 0.3em;
+}
+
+#login p label {
+  font-size: medium;
+  color: #222;
+  font-weight: bold;
+}
+
+#info {
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  /*	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+*/
+  border: 1px solid #e6e6e6;
+  background: white;
+
+  /*
+	background: #F2F2F2 -webkit-gradient(linear, 0% 70%, 0% 100%, from(#fefefe), to(#ddd), color-stop(.6,#f0f0f0));
+	background: #F2F2F2 -moz-linear-gradient(0% 100% 90deg,#dddddd, #f0f0f0, #FEFEFE 31%);
+
+*/
+  margin: 2em auto 2em;
+  padding: 10px 30px 10px 30px;
+
+  color: #000;
+  width: 300px;
+}
+
+#info h2 {
+  color: #003c69;
+  font-family: "Oswald", sans-serif;
+}
+
+.tooltipqmark {
+  cursor: pointer;
+}
+
+.tooltipqmark img {
+  margin-bottom: -3px;
+}
+
+/* Tooltip functionality */
+[data-tooltip]:before {
+  position: absolute;
+  content: attr(data-tooltip);
+  opacity: 0;
+
+  transition: all 0.15s ease;
+  padding: 10px;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px silver;
+  margin-top: -55px;
+  margin-left: 10px;
+  max-width: 20ex;
+}
+
+[data-tooltip]:hover:before {
+  opacity: 1;
+}
