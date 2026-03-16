@@ -112,7 +112,9 @@ def is_allowed_post_logout_redirect(target_url: str, allowed_base_url: str | Non
     if (target.scheme, target.netloc) != (allowed.scheme, allowed.netloc):
         return False
 
-    allowed_path = allowed.path.rstrip("/") or "/"
+    allowed_path = allowed.path.rstrip("/")
+    if not allowed_path:
+        return True  # allowed base is origin-only, any path is permitted
     target_path = target.path.rstrip("/") or "/"
     return target_path == allowed_path or target_path.startswith(f"{allowed_path}/")
 
