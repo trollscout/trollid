@@ -10,7 +10,7 @@
 
 <body class="login">
   <div id="logo">
-    <img alt="logo" src="/static/logoscouterna.png">
+    <img alt="logo" src="/static/logo.png">
   </div>
   <div id="login">
     <form name="loginform" id="loginform" action="/auth/login" method="post">
@@ -37,9 +37,11 @@
           <input type="submit" name="wp-submit" id="wp-submit" value="Logga in »" tabindex="100">
         </label>
       </p>
+      {% if forgot_password_url %}
       <p>
-        <a href="https://www.scoutnet.se/request_password">Glömt lösenordet - klicka här.</a>
+        <a href="{{ forgot_password_url }}">Glömt lösenordet - klicka här.</a>
       </p>
+      {% endif %}
       {% if login_failed %}
         <div id="error">
           <img src="/static/gtk-dialog-error.48x48.png" style="float: right; margin: 15px;" alt="Error">
@@ -51,21 +53,7 @@
     </form>
   </div>
 
-  <div id="info">
-    <h2>Har du en inloggning?</h2>
-    <p>
-      För att logga in på den här e-tjänsten så behöver du ett ScoutID.
-      Det har du automatiskt om du är medlem i en scoutkår som är direktansluten till Scouterna eller tillhör Salt
-      Scout.
-    </p>
-    <p>
-      Om du är medlem i <b>Nykterhetsrörelsens Scoutförbund</b> eller <b>Equmenia</b> kontakta <a
-        href="mailto:scoutnet@scouterna.se">scoutnet@scouterna.se</a> för att få hjälp med att skaffa ett ScoutID.
-    </p>
-    <p>
-      <a href="https://etjanster.scout.se/e-tjanster/scoutid/">Läs mer om ScoutID</a>
-    </p>
-  </div>
+  {% include 'info_block.html' %}
 
 
 </body>

@@ -44,6 +44,8 @@ IDP_CLIENT_SECRET = get_required_env("IDP_CLIENT_SECRET")  # Client secret for t
 IDP_REDIRECT_URI = get_required_env("IDP_REDIRECT_URI")  # Redirect URI for the OIDC provider
 IDP_POST_LOGOUT_REDIRECT_URI = os.getenv("IDP_POST_LOGOUT_REDIRECT_URI")  # Allowed post-logout redirect URI
 
+FORGOT_PASSWORD_URL = os.getenv("FORGOT_PASSWORD_URL", "https://www.scoutnet.se/request_password")  # Forgot password link shown on login page (set empty to hide)
+
 SCOUTNET_API = os.getenv("SCOUTNET_API", "https://scoutnet.se/api")  # Base URL for the Scoutnet API
 SCOUTNET_APP_ID = os.getenv("SCOUTNET_APP_ID", "change_me")  # Identifies the app (> 10 chars)
 SCOUTNET_APP_NAME = os.getenv("SCOUTNET_APP_NAME", "scoutid-oidc-provider")  # Name of the app
@@ -311,7 +313,7 @@ async def login_page(request: Request):
     csrf_token = secrets.token_urlsafe(32)
     request.session["csrf_token"] = csrf_token
     return templates.TemplateResponse(
-        request=request, name="login.html", context={"login_failed": False, "csrf_token": csrf_token}
+        request=request, name="login.html", context={"login_failed": False, "csrf_token": csrf_token, "forgot_password_url": FORGOT_PASSWORD_URL}
     )
 
 
@@ -378,7 +380,7 @@ async def login_token(
             new_csrf = secrets.token_urlsafe(32)
             request.session["csrf_token"] = new_csrf
             return templates.TemplateResponse(
-                request=request, name="login.html", context={"login_failed": True, "csrf_token": new_csrf}
+                request=request, name="login.html", context={"login_failed": True, "csrf_token": new_csrf, "forgot_password_url": FORGOT_PASSWORD_URL}
             )
 
         auth_header = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
