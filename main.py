@@ -239,8 +239,8 @@ async def authorize(
     nonce: str | None,
 ):
     """
-    Called from the client through a redirect from Keycloak
-    If the user has an active session, redirect back to Keycloak with an authorization code.
+    Called from the client, either direct or through a redirect from the client
+    If the user has an active session, redirect back to caller with an authorization code.
     If the user doesn't have an active session, redirect to a login page.
     """
 
@@ -296,11 +296,11 @@ async def authorize(
         request.session["auth_code"] = code  # Save the auth_code in the session
         return RedirectResponse("/auth/login")  # Redirect to the login page
 
-    active_requests[code]["userinfo"] = userinfo  # Save userinfo for expected token request from Keycloak
-    logging.info("Active session found, redirecting to Keycloak")
+    active_requests[code]["userinfo"] = userinfo  # Save userinfo for expected token request from client
+    logging.info("Active session found, redirecting back to client")
 
     redirect_response = f"{redirect_uri}?state={state}&session_state={session_state}&code={code}"
-    return RedirectResponse(redirect_response)  # Return to Keycloak
+    return RedirectResponse(redirect_response)  # Return to client
 
 
 @app.get("/auth/login", include_in_schema=False)
@@ -327,7 +327,7 @@ async def login_token(
     The user doesn't have an active session, so we need to log in the user.
     The user has entered their credentials in the login form.
     We need to validate the credentials against the Scoutnet API.
-    If the credentials are valid, we create a session and redirect back to Keycloak with the authorization code.
+    If the credentials are valid, we create a session and redirect back to client with the authorization code.
     If the credentials are invalid, we return an error message.
     """
 
@@ -470,7 +470,7 @@ async def issue_token(
     authorization: str | None = Header(None),  # Capture the Authorization header
 ):
     """
-    Called from Keycloak to exchange the authorization code for an access token.
+    Called from client to exchange the authorization code for an access token.
     The request is sent as a POST request with the following parameters:
     - grant_type: The type of grant being requested. Should be "authorization_code".
     - redirect_uri: The redirect URI used in the authorization request.
@@ -641,5 +641,6 @@ Main function (entry point)
 if __name__ == "__main__":
     # Enable logging. INFO is default. DEBUG if requested
     logging.basicConfig(level=logging.DEBUG if DEBUG_MODE else logging.INFO, format=LOGFORMAT)
+    logging.getLogger("multipart").setLevel(logging.WARNING) # Supress noisy python-multipart parser
 
     uvicorn.run("main:app", host="0.0.0.0", port=HTTP_SERVER_PORT, log_config=None)
