@@ -2,60 +2,79 @@
 <html lang="sv">
 
 <head>
-  <title>Ange ditt användarnamn och lösenord</title>
+  <title>TrollID – Logga in</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/index.css" type="text/css" />
 </head>
 
-<body class="login">
-  <div id="logo">
-    <img alt="logo" src="/static/logo.png">
-  </div>
-  <div id="login">
-    <form name="loginform" id="loginform" action="/auth/login" method="post">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <h2>Inloggning</h2>
-      <p>
-        <label for="username">Användarnamn</label>
-        <span class="tooltipqmark" data-tooltip="Medlemsnummer, personnummer, eller primär epostadress">
-          <img src="/static/questionmark.png">
-        </span><br>
-        <input type="text" name="username" id="username" class="input" size="20" tabindex="10" required>
-      </p>
-      <p>
-        <label for="user_pass">Lösenord</label><br>
-        <input type="password" name="password" id="user_pass" class="input" value="" size="20" tabindex="20" required>
-      </p>
-      <label>
-        <input name="remember_me" type="checkbox" id="remember_me" value="true" tabindex="90">
-        Kom ihåg mig
-      </label>
-      </p>
-      <p class="submit">
-        <label>
-          <input type="submit" name="wp-submit" id="wp-submit" value="Logga in »" tabindex="100">
-        </label>
-      </p>
-      {% if forgot_password_url %}
-      <p>
-        <a href="{{ forgot_password_url }}">Glömt lösenordet - klicka här.</a>
-      </p>
-      {% endif %}
-      {% if login_failed %}
-        <div id="error">
-          <img src="/static/gtk-dialog-error.48x48.png" style="float: right; margin: 15px;" alt="Error">
-          <h2>Fel</h2>
-          <p style="clear: both; font-weight: bold;">Felaktig användaridentitet eller lösenord</p>
-          <p>Antingen finns det ingen användare med angiven användaridentitet eller så har du angivit fel lösenord. Försök igen.</p>
+<body>
+  <div class="page-wrapper">
+
+    <!-- Brand header -->
+    <div class="brand-header">
+      <img alt="Trollbäckens Scoutkår" src="/static/logo.png">
+      <div class="brand-title">TrollID</div>
+      <!-- <div class="brand-subtitle">Trollbäckens Scoutkår</div> -->
+    </div>
+
+    <!-- Login card -->
+    <div class="card" id="login">
+      <form name="loginform" id="loginform" action="/auth/login" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <h2>Logga in</h2>
+
+        <div class="field">
+          <div class="field-label">
+            Användarnamn
+            <span class="tooltipqmark" data-tooltip="Medlemsnummer, personnummer, eller primär e-postadress">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <circle cx="7" cy="7" r="6.5" stroke="#94a3b8" stroke-width="1.2" />
+                <text x="7" y="11" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="bold"
+                  font-family="sans-serif">?</text>
+              </svg>
+            </span>
+          </div>
+          <input type="text" name="username" id="username" class="input" tabindex="10" required autocomplete="username">
         </div>
-      {% endif %}
-    </form>
+
+        <div class="field">
+          <div class="field-label">Lösenord</div>
+          <input type="password" name="password" id="user_pass" class="input" tabindex="20" required
+            autocomplete="current-password">
+        </div>
+
+        <label class="checkbox-label">
+          <input name="remember_me" type="checkbox" id="remember_me" value="true" tabindex="90">
+          Kom ihåg mig
+        </label>
+
+        <input type="submit" name="wp-submit" id="wp-submit" value="Logga in" tabindex="100">
+
+        {% if forgot_password_url %}
+        <div class="forgot-link">
+          <a href="{{ forgot_password_url }}">Glömt lösenordet?</a>
+        </div>
+        {% endif %}
+
+        {% if login_failed %}
+        <div id="error">
+          <h2>Fel vid inloggning</h2>
+          <p>Felaktigt användarnamn eller lösenord. Försök igen.</p>
+        </div>
+        {% endif %}
+
+      </form>
+    </div>
+
+    {% include 'info_block.html' %}
+
+    <div class="footer">
+      <p><a href="https://www.trollbackensscoutkar.se/">trollbackensscoutkar.se</a></p>
+    </div>
+
   </div>
-
-  {% include 'info_block.html' %}
-
-
 </body>
 
 </html>
